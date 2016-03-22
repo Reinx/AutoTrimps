@@ -1503,7 +1503,7 @@ function autoMap() {
         }
          
          //if block is higher then damage then get 5 stacks and progress
-         if (baseBlock >= enemydmg && game.global.mapBonus + 1 == 5) shouldDoMaps = false;
+         if (baseBlock >= enemydmg && game.global.mapBonus + 1 >= 5) shouldDoMaps = false;
          if (baseBlock >= enemydmg && game.global.challengeActive == 'Balance') shouldDoMaps = false;
          //if able to oneshot then progress
          if (baseDamage >= enemyhp) shouldDoMaps = false;
@@ -1520,7 +1520,7 @@ function autoMap() {
         {
         	var prestigesonmap = 2;
         }
-        if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 == prestigesonmap && game.global.world < 40) shouldDoMaps = false;
+        if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 >= prestigesonmap && game.global.world < 40) shouldDoMaps = false;
         //if we are at max map bonus, and we don't need to farm, don't do maps
         if(game.global.mapBonus == 10 && !shouldFarm) shouldDoMaps = false;
         //if we are prestige mapping, force equip first mode
