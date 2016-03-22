@@ -1519,7 +1519,9 @@ function autoMap() {
         {
         	var prestigesonmap = 2;
         }
-        if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 >= prestigesonmap && game.global.world < 40) shouldDoMaps = false;
+        if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 >= prestigesonmap && game.global.world < 39) shouldDoMaps = false;
+        if (game.global.challengeActive == 'Balance' && game.global.world == 40) shouldDoMaps = false;
+        if (game.global.challengeActive == 'Balance' && game.global.world == 39 && game.challenges.Balance.balanceStacks > 100) shouldFarm = true; 
         //if we are at max map bonus, and we don't need to farm, don't do maps
         if(game.global.mapBonus == 10 && !shouldFarm) shouldDoMaps = false;
         //if we are prestige mapping, force equip first mode
