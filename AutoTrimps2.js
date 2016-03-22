@@ -1487,8 +1487,9 @@ function autoMap() {
         	enemyhp = (getEnemyMaxHealth(game.global.world + 1) * 0.9);
         }
          
-         //if block is higher then damage then get 5 stacks and progress
+         //if block is higher then damage then get 5 stacks and progress, ignore 5 map stacks if on balance run(better production)
          if (baseBlock >= enemydmg && game.global.mapBonus + 1 == 5) shouldDoMaps = false;
+         if (baseBlock >= enemydmg && game.global.challengeActive == 'Balance') shouldDoMaps = false;
          //if able to oneshot then progress
          if (baseDamage >= enemyhp) shouldDoMaps = false;
          //if able to oneshot using map stacks then get enough stacks and progress
