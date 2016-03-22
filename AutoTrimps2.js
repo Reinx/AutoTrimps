@@ -1010,8 +1010,6 @@ function buyBuildings() {
     //if ((targetBreed < getBreedTime() || targetBreed == 0 || !getPageSetting('ManageBreedtimer') || (!game.jobs.Geneticist.locked && canAffordJob('Geneticist', false))) && !game.buildings.Nursery.locked) {
         //if ((getPageSetting('MaxNursery') > game.buildings.Nursery.owned || getPageSetting('MaxNursery') == -1) && (getBuildingItemPrice(game.buildings.Nursery, "gems") < 0.05 * getBuildingItemPrice(game.buildings.Warpstation, "gems") || game.buildings.Warpstation.locked) && (getBuildingItemPrice(game.buildings.Nursery, "gems") < 0.05 * getBuildingItemPrice(game.buildings.Collector, "gems") || game.buildings.Collector.locked || !game.buildings.Warpstation.locked)) {
             //safeBuyBuilding('Nursery');
-        //}
-    //}
 }
 
 function setTitle() {
