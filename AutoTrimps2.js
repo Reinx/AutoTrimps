@@ -1459,21 +1459,21 @@ function autoMap() {
         var shouldDoMap = "world";
        
         var enemydmg = ((getEnemyMaxAttack(game.global.world, 99, 'Snimp', 1) / 12) * 10);
- +      var enemyhp = (getEnemyMaxHealth(game.global.world) * 0.9);
+       var enemyhp = (getEnemyMaxHealth(game.global.world) * 0.9);
         if (game.global.challengeActive == 'Lead') {
         	enemydmg = ((getEnemyMaxAttack(game.global.world + 1, 99, 'Snimp', 1) / 12) * 10);
         	enemyhp = (getEnemyMaxHealth(game.global.world + 1) * 0.9);
         }
- +        
- +        //if block is higher then damage then get 5 stacks and progress
- +        if (baseBlock >= enemydmg && game.global.mapBonus + 1 == 5) shouldDoMaps = false;
- +        //if able to oneshot then progress
- +        if (baseDamage >= enemyhp) shouldDoMaps = false;
- +        //if able to oneshot using map stacks then get enough stacks and progress
- +        if (baseDamage * 3 > enemyhp)
- +        {
- +            if (game.global.mapBonus + 1 >= (((enemyhp / baseDamage) - 1) * 5) ) shouldDoMaps = false;
- +        }
+         
+         //if block is higher then damage then get 5 stacks and progress
+         if (baseBlock >= enemydmg && game.global.mapBonus + 1 == 5) shouldDoMaps = false;
+         //if able to oneshot then progress
+         if (baseDamage >= enemyhp) shouldDoMaps = false;
+         //if able to oneshot using map stacks then get enough stacks and progress
+         if (baseDamage * 3 > enemyhp)
+         {
+             if (game.global.mapBonus + 1 >= (((enemyhp / baseDamage) - 1) * 5) ) shouldDoMaps = false;
+         }
         
         //if we are at max map bonus, and we don't need to farm, don't do maps
         if(game.global.mapBonus == 10 && !shouldFarm) shouldDoMaps = false;
