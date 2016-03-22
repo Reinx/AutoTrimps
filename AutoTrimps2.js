@@ -910,7 +910,7 @@ function initializeAutoTrimps() {
 }
 
 function easyMode() {
-    if (game.global.turkimpTimer > 0)
+    if (game.global.turkimpTimer > 0 && game.global.world > (game.global.highestLevelCleared / 2))
     {
     	autoTrimpSettings.FarmerRatio.value = '0';
         autoTrimpSettings.LumberjackRatio.value = '0';
@@ -1224,7 +1224,7 @@ function manualLabor() {
     var ManualGather = 'metal';
     var breedingTrimps = game.resources.trimps.owned - game.resources.trimps.employed;
     
-    if (game.global.turkimpTimer > 0) 
+    if (game.global.turkimpTimer > 0 && game.global.world > (game.global.highestLevelCleared / 2)) 
     {
     	setGather('metal');
     }
