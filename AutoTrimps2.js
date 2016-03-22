@@ -315,7 +315,7 @@ function getfodprice(house)
 	if (house == "house" && game.buildings.House.owned >= 1) return getBuildingItemPrice(game.buildings.House, "food");
 	if (house == "mansion" && game.buildings.Mansion.owned >= 1) return getBuildingItemPrice(game.buildings.Mansion, "food");
 	if (house == "hotel" && game.buildings.Hotel.owned >= 1) return getBuildingItemPrice(game.buildings.Hotel, "food");
-	return 1000000000
+	return 1000000000;
 }
 
 function safeBuyJob(jobTitle, amount) {
