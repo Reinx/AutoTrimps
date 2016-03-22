@@ -1039,7 +1039,9 @@ function buyJobs() {
     if (getPageSetting('MaxTrainers') > game.jobs.Trainer.owned || getPageSetting('MaxTrainers') == -1) {
         game.global.buyAmt = 1;
         var treinocost = (Math.pow(1.1,game.jobs.Trainer.owned)) * 750;
-        if (treinocost * 2 < getBuildingItemPrice(game.buildings.Tribute, "gems") && canAffordJob('Trainer', false) && !game.jobs.Trainer.locked) {
+        var tributocost = 1000000000;
+        if (game.buildings.Tribute.owned >= 1) tributocost = getBuildingItemPrice(game.buildings.Tribute, "gems");
+        if (treinocost * 2 < tributocost && canAffordJob('Trainer', false) && !game.jobs.Trainer.locked) {
             freeWorkers = Math.ceil(game.resources.trimps.realMax() / 2) - game.resources.trimps.employed;
             if (freeWorkers <= 0) safeBuyJob('Farmer', -1);
             safeBuyJob('Trainer');
@@ -1048,7 +1050,9 @@ function buyJobs() {
     if (game.jobs.Explorer.owned < getPageSetting('MaxExplorers') || getPageSetting('MaxExplorers') == -1) {
         game.global.buyAmt = 1;
         var exploracost = (Math.pow(1.1,game.jobs.Explorer.owned)) * 15000;
-        if (exploracost * 20 < getBuildingItemPrice(game.buildings.Tribute, "gems") && canAffordJob('Explorer', false) && !game.jobs.Explorer.locked) {
+        var tributocost = 1000000000;
+        if (game.buildings.Tribute.owned >= 1) tributocost = getBuildingItemPrice(game.buildings.Tribute, "gems");
+        if (exploracost * 20 < tributocost && canAffordJob('Explorer', false) && !game.jobs.Explorer.locked) {
             freeWorkers = Math.ceil(game.resources.trimps.realMax() / 2) - game.resources.trimps.employed;
             if (freeWorkers <= 0) safeBuyJob('Farmer', -1);
             safeBuyJob('Explorer');
