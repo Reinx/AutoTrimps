@@ -1712,13 +1712,13 @@ function autoMap() {
                 if (shouldDoMap != "world") {
                     //if shouldFarm, don't switch until after megafarming
                     if (!game.global.switchToMaps && ((shouldFarm && game.global.lastClearedCell > 79) || !shouldFarm)) {
-                         mapsClicked();
-                         mapsClicked();
+                         //mapsClicked();
+                         //mapsClicked();
                     }
                     //if (prestige mapping or need to do void maps) abandon army if (a new army is ready or need to void map and we're almost done with the zone)
                     if(game.global.switchToMaps && (doVoids || needPrestige) && (game.resources.trimps.realMax() <= game.resources.trimps.owned + 1 || (doVoids && game.global.lastClearedCell > 95)))
-                         	//mapsClicked();
-                         	//mapsClicked();
+                         	mapsClicked();
+                         	mapsClicked();
                 }
             }
         } else if (game.global.preMapsActive) {
