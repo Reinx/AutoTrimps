@@ -295,6 +295,8 @@ game.global.buyAmt = oldBuy;
 }
 
 function buyFoodEfficientHousing() {
+    if (!game.buildings.House.locked && game.buildings.House.owned == 0) safeBuyBuilding('House');
+    if (!game.buildings.Mansion.locked && game.buildings.Mansion.owned == 0) safeBuyBuilding('Mansion');
     if ( getfodprice("hut") * 2 < getfodprice("house") && getfodprice("hut") * 4 < getfodprice("mansion") && getfodprice("hut") * 8 < getfodprice("hotel"))
     {
     	safeBuyBuilding('Hut');
@@ -1040,7 +1042,7 @@ function buyJobs() {
         game.global.buyAmt = 1;
         var treinocost = (Math.pow(1.1,game.jobs.Trainer.owned)) * 750;
         var tributocost = 1000000000;
-        if (game.buildings.Tribute.owned >= 1) tributocost = getBuildingItemPrice(game.buildings.Tribute, "gems");
+        if (game.buildings.Tribute.owned >= 1) tributocost = getBuildingItemPrice(game.buildings.Tribute, "food");
         if (treinocost * 2 < tributocost && canAffordJob('Trainer', false) && !game.jobs.Trainer.locked) {
             freeWorkers = Math.ceil(game.resources.trimps.realMax() / 2) - game.resources.trimps.employed;
             if (freeWorkers <= 0) safeBuyJob('Farmer', -1);
@@ -1051,7 +1053,7 @@ function buyJobs() {
         game.global.buyAmt = 1;
         var exploracost = (Math.pow(1.1,game.jobs.Explorer.owned)) * 15000;
         var tributocost = 1000000000;
-        if (game.buildings.Tribute.owned >= 1) tributocost = getBuildingItemPrice(game.buildings.Tribute, "gems");
+        if (game.buildings.Tribute.owned >= 1) tributocost = getBuildingItemPrice(game.buildings.Tribute, "food");
         if (exploracost * 20 < tributocost && canAffordJob('Explorer', false) && !game.jobs.Explorer.locked) {
             freeWorkers = Math.ceil(game.resources.trimps.realMax() / 2) - game.resources.trimps.employed;
             if (freeWorkers <= 0) safeBuyJob('Farmer', -1);
@@ -1489,6 +1491,7 @@ function autoMap() {
          
          //if block is higher then damage then get 5 stacks and progress
          if (baseBlock >= enemydmg && game.global.mapBonus + 1 == 5) shouldDoMaps = false;
+         if (baseBlock >= enemydmg && game.global.challengeActive == 'Balance') shouldDoMaps = false;
          //if able to oneshot then progress
          if (baseDamage >= enemyhp) shouldDoMaps = false;
          //if able to oneshot using map stacks then get enough stacks and progress
