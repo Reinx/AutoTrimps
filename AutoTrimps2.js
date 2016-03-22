@@ -273,6 +273,8 @@ function highlightHousing() {
             {
             	cost += gemcost;
             }
+            if (building = "Hut") cost = allcost;
+            if (building = "House") cost = allcost;
             var ratio = cost / building.increase.by;
             //don't consider Gateway if we can't afford it right now - hopefully to prevent game waiting for fragments to buy gateway when collector could be bought right now
             if(unlockedHousing[house] == "Gateway" && !canAffordBuilding('Gateway')) continue;
