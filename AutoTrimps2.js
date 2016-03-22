@@ -267,13 +267,14 @@ function highlightHousing() {
             allcost += getBuildingItemPrice(building, "food") + getBuildingItemPrice(building, "wood")
             if (gemcost / game.jobs.Dragimp.modifier > allcost / ((1 * game.jobs.Farmer.modifier * game.jobs.Farmer.owned) + (1 * game.jobs.Lumberjack.modifier * game.jobs.Lumberjack.owned)))
             {
-            	cost += allcost;
+            	cost += allcost / ((1 * game.jobs.Farmer.modifier * game.jobs.Farmer.owned) + (1 * game.jobs.Lumberjack.modifier * game.jobs.Lumberjack.owned));
             }
             else
             {
-            	cost += gemcost;
+            	cost += gemcost / game.jobs.Dragimp.modifier;
             }
-            if (house <= 1) cost = allcost;
+            if (house <= 1) cost = allcost / ((1 * game.jobs.Farmer.modifier * game.jobs.Farmer.owned) + (1 * game.jobs.Lumberjack.modifier * game.jobs.Lumberjack.owned));
+            if (house >= 3) cost = gemcost / game.jobs.Dragimp.modifier;
             //cost += getBuildingItemPrice(building, "gems");
             var ratio = cost / building.increase.by;
             //don't consider Gateway if we can't afford it right now - hopefully to prevent game waiting for fragments to buy gateway when collector could be bought right now
