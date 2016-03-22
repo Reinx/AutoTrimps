@@ -1519,6 +1519,7 @@ function autoMap() {
         {
         	var prestigesonmap = 2;
         }
+        if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 < prestigesonmap) shouldDoMaps = true;
         if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 >= prestigesonmap && game.global.world < 39) shouldDoMaps = false;
         if (game.global.challengeActive == 'Balance' && game.global.world == 40) shouldDoMaps = false;
         if (game.global.challengeActive == 'Balance' && game.global.world == 39 && game.challenges.Balance.balanceStacks > 100) shouldFarm = true; 
