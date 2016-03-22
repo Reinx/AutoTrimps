@@ -315,7 +315,7 @@ function getfodprice(house)
 	if (house == "house" && game.buildings.House.owned >= 1) return getBuildingItemPrice(game.buildings.House, "food");
 	if (house == "mansion" && game.buildings.Mansion.owned >= 1) return getBuildingItemPrice(game.buildings.Mansion, "food");
 	if (house == "hotel" && game.buildings.Hotel.owned >= 1) return getBuildingItemPrice(game.buildings.Hotel, "food");
-	return 0
+	return 1000000000
 }
 
 function safeBuyJob(jobTitle, amount) {
@@ -995,11 +995,23 @@ function buyBuildings() {
     var targetBreed = parseInt(getPageSetting('GeneticistTimer'));
     //only buy nurseries if enabled,   and we need to lower our breed time, or our target breed time is 0, or we aren't trying to manage our breed time before geneticists, and they aren't locked
     //even if we are trying to manage breed timer pre-geneticists, start buying nurseries once geneticists are unlocked AS LONG AS we can afford a geneticist (to prevent nurseries from outpacing geneticists soon after they are unlocked)
-    if ((targetBreed < getBreedTime() || targetBreed == 0 || !getPageSetting('ManageBreedtimer') || (!game.jobs.Geneticist.locked && canAffordJob('Geneticist', false))) && !game.buildings.Nursery.locked) {
-        if ((getPageSetting('MaxNursery') > game.buildings.Nursery.owned || getPageSetting('MaxNursery') == -1) && (getBuildingItemPrice(game.buildings.Nursery, "gems") < 0.05 * getBuildingItemPrice(game.buildings.Warpstation, "gems") || game.buildings.Warpstation.locked) && (getBuildingItemPrice(game.buildings.Nursery, "gems") < 0.05 * getBuildingItemPrice(game.buildings.Collector, "gems") || game.buildings.Collector.locked || !game.buildings.Warpstation.locked)) {
-            safeBuyBuilding('Nursery');
-        }
+    if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 10 < getBuildingItemPrice(game.buildings.Hotel, "gems") && game.buildings.Hotel.owned >= 1)
+    {
+    	safeBuyBuilding('Nursery');
     }
+    if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 20 < getBuildingItemPrice(game.buildings.Collector, "gems") && game.buildings.Collector.owned >= 1)
+    {
+    	safeBuyBuilding('Nursery');
+    }
+    if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 20 < getBuildingItemPrice(game.buildings.Warpstation, "gems") && game.buildings.Warpstation.owned >= 1)
+    {
+    	safeBuyBuilding('Nursery');
+    }
+    //if ((targetBreed < getBreedTime() || targetBreed == 0 || !getPageSetting('ManageBreedtimer') || (!game.jobs.Geneticist.locked && canAffordJob('Geneticist', false))) && !game.buildings.Nursery.locked) {
+        //if ((getPageSetting('MaxNursery') > game.buildings.Nursery.owned || getPageSetting('MaxNursery') == -1) && (getBuildingItemPrice(game.buildings.Nursery, "gems") < 0.05 * getBuildingItemPrice(game.buildings.Warpstation, "gems") || game.buildings.Warpstation.locked) && (getBuildingItemPrice(game.buildings.Nursery, "gems") < 0.05 * getBuildingItemPrice(game.buildings.Collector, "gems") || game.buildings.Collector.locked || !game.buildings.Warpstation.locked)) {
+            //safeBuyBuilding('Nursery');
+        /}
+    /}
 }
 
 function setTitle() {
@@ -1032,7 +1044,8 @@ function buyJobs() {
     //Simple buy if you can
     if (getPageSetting('MaxTrainers') > game.jobs.Trainer.owned || getPageSetting('MaxTrainers') == -1) {
         game.global.buyAmt = 1;
-        if (canAffordJob('Trainer', false) && !game.jobs.Trainer.locked) {
+        var treinocost = (1.1 ^ game.jobs.Trainer.owned) * 750
+        if (treinocost * 2 < getBuildingItemPrice(game.buildings.Tribute, "gems") && canAffordJob('Trainer', false) && !game.jobs.Trainer.locked) {
             freeWorkers = Math.ceil(game.resources.trimps.realMax() / 2) - game.resources.trimps.employed;
             if (freeWorkers <= 0) safeBuyJob('Farmer', -1);
             safeBuyJob('Trainer');
@@ -1040,7 +1053,8 @@ function buyJobs() {
     }
     if (game.jobs.Explorer.owned < getPageSetting('MaxExplorers') || getPageSetting('MaxExplorers') == -1) {
         game.global.buyAmt = 1;
-        if (canAffordJob('Explorer', false) && !game.jobs.Explorer.locked) {
+        var exploracost = (1.1 ^ game.jobs.Explorer.owned) * 15000
+        if (exploracost * 20 < getBuildingItemPrice(game.buildings.Tribute, "gems") && canAffordJob('Explorer', false) && !game.jobs.Explorer.locked) {
             freeWorkers = Math.ceil(game.resources.trimps.realMax() / 2) - game.resources.trimps.employed;
             if (freeWorkers <= 0) safeBuyJob('Farmer', -1);
             safeBuyJob('Explorer');
