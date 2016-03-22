@@ -249,7 +249,7 @@ function safeBuyBuilding(building) {
 function highlightHousing() {
     var oldBuy = game.global.buyAmt;
     game.global.buyAmt = 1;
-    var allHousing = ["Hut","House","Mansion","Hotel", "Resort", "Gateway", "Collector", "Warpstation"];
+    var allHousing = ["Hotel", "Resort", "Gateway", "Collector", "Warpstation"];
     var unlockedHousing = [];
     for (var house in allHousing) {
         if (game.buildings[allHousing[house]].locked === 0) {
@@ -261,21 +261,7 @@ function highlightHousing() {
         for (var house in unlockedHousing) {
             var building = game.buildings[unlockedHousing[house]];
             var cost = 0;
-            var allcost = 0;
-            var gemcost = 0;
-            if (house >= 2) gemcost += getBuildingItemPrice(building, "gems");
-            allcost += getBuildingItemPrice(building, "food") + getBuildingItemPrice(building, "wood")
-            if (gemcost / game.jobs.Dragimp.modifier > allcost / ((1 * game.jobs.Farmer.modifier * game.jobs.Farmer.owned) + (1 * game.jobs.Lumberjack.modifier * game.jobs.Lumberjack.owned)))
-            {
-            	cost += allcost / ((1 * game.jobs.Farmer.modifier * game.jobs.Farmer.owned) + (1 * game.jobs.Lumberjack.modifier * game.jobs.Lumberjack.owned));
-            }
-            else
-            {
-            	cost += gemcost / game.jobs.Dragimp.modifier;
-            }
-            if (house <= 1) cost = allcost / ((1 * game.jobs.Farmer.modifier * game.jobs.Farmer.owned) + (1 * game.jobs.Lumberjack.modifier * game.jobs.Lumberjack.owned));
-            if (house >= 3) cost = gemcost / game.jobs.Dragimp.modifier;
-            //cost += getBuildingItemPrice(building, "gems");
+            cost += getBuildingItemPrice(building, "gems");
             var ratio = cost / building.increase.by;
             //don't consider Gateway if we can't afford it right now - hopefully to prevent game waiting for fragments to buy gateway when collector could be bought right now
             if(unlockedHousing[house] == "Gateway" && !canAffordBuilding('Gateway')) continue;
