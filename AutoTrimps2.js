@@ -295,8 +295,7 @@ game.global.buyAmt = oldBuy;
 }
 
 function buyFoodEfficientHousing() {
-    if (game.buildings.House.locked < 1) safeBuyBuilding('House');
-    if (game.buildings.Mansion.locked < 1) safeBuyBuilding('Mansion');
+    
     if ( getfodprice("hut") * 2 < getfodprice("house") && getfodprice("hut") * 4 < getfodprice("mansion") && getfodprice("hut") * 8 < getfodprice("hotel"))
     {
     	safeBuyBuilding('Hut');
