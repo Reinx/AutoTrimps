@@ -295,6 +295,8 @@ game.global.buyAmt = oldBuy;
 }
 
 function buyFoodEfficientHousing() {
+    if (game.buildings.House.locked < 1) safeBuyBuilding('House');
+    if (game.buildings.Mansion.locked < 1) safeBuyBuilding('Mansion');
     if ( getfodprice("hut") * 2 < getfodprice("house") && getfodprice("hut") * 4 < getfodprice("mansion") && getfodprice("hut") * 8 < getfodprice("hotel"))
     {
     	safeBuyBuilding('Hut');
@@ -312,9 +314,9 @@ function buyFoodEfficientHousing() {
 function getfodprice(house)
 {
 	if (house == "hut") return getBuildingItemPrice(game.buildings.Hut, "food");
-	if (house == "house" && !game.buildings.House.locked) return getBuildingItemPrice(game.buildings.House, "food");
-	if (house == "mansion" && !game.buildings.Mansion.locked) return getBuildingItemPrice(game.buildings.Mansion, "food");
-	if (house == "hotel" && !game.buildings.Hotel.locked) return getBuildingItemPrice(game.buildings.Hotel, "food");
+	if (house == "house" && game.buildings.House.owned >= 1) return getBuildingItemPrice(game.buildings.House, "food");
+	if (house == "mansion" && game.buildings.Mansion.owned >= 1) return getBuildingItemPrice(game.buildings.Mansion, "food");
+	if (house == "hotel" && game.buildings.Hotel.owned >= 1) return getBuildingItemPrice(game.buildings.Hotel, "food");
 	return 1000000000;
 }
 
