@@ -25,7 +25,7 @@ var newCoord = false;
 
 var noFight = 0;
 
-
+var mintraps = 1;
 
 
 var baseDamage = 0;
@@ -1223,7 +1223,6 @@ function autoLevelEquipment() {
 function manualLabor() {
     var ManualGather = 'metal';
     var breedingTrimps = game.resources.trimps.owned - game.resources.trimps.employed;
-    var mintraps = 0;
     
     if (game.global.turkimpTimer > 0) 
     {
@@ -1248,13 +1247,13 @@ function manualLabor() {
         // debug('Science needed ' + scienceNeeded);
         setGather('science');
     } 
-    else if (getPageSetting('TrapTrimps') && parseInt(getPageSetting('GeneticistTimer')) < getBreedTime(true) && game.buildings.Trap.owned == mintraps && canAffordBuilding('Trap')) { 
+    else if (getPageSetting('TrapTrimps') && parseInt(getPageSetting('GeneticistTimer')) < getBreedTime(true) && game.buildings.Trap.owned < mintraps && canAffordBuilding('Trap')) { 
     		    mintraps = 600;
     		    safeBuyBuilding('Trap');
     		    setGather('buildings');
     }
-	else if (getPageSetting('TrapTrimps') && parseInt(getPageSetting('GeneticistTimer')) < getBreedTime(true) && game.buildings.Trap.owned > mintraps) {
-		mintraps = 0;
+	else if (getPageSetting('TrapTrimps') && parseInt(getPageSetting('GeneticistTimer')) < getBreedTime(true) && game.buildings.Trap.owned >= mintraps) {
+		mintraps = 1;
 		setGather('trimps');
     }
 
