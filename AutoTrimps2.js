@@ -295,17 +295,27 @@ game.global.buyAmt = oldBuy;
 }
 
 function buyFoodEfficientHousing() {
-    var houseWorth = game.buildings.House.locked ? 0 : game.buildings.House.increase.by / getBuildingItemPrice(game.buildings.House, "food");
-    var hutWorth = game.buildings.Hut.increase.by / getBuildingItemPrice(game.buildings.Hut, "food");
-    var hutAtMax = (game.buildings.Hut.owned >= autoTrimpSettings.MaxHut.value && autoTrimpSettings.MaxHut.value != -1);
-    //if hutworth is more, but huts are maxed , still buy up to house max
-    if ((houseWorth > hutWorth || hutAtMax) && canAffordBuilding('House') && (game.buildings.House.owned < autoTrimpSettings.MaxHouse.value || autoTrimpSettings.MaxHouse.value == -1)) {
-        safeBuyBuilding('House');
-    } else {
-        if (!hutAtMax) {
-            safeBuyBuilding('Hut');
-        }
+    if ( getfodprice("hut") * 2 < getfodprice("house") && getfodprice("hut") * 4 < getfodprice("mansion") && getfodprice("hut") * 8 < getfodprice("hotel"))
+    {
+    	safeBuyBuilding('Hut');
     }
+    if (getfodprice("house") * 2 < getfodprice("mansion") && getfodprice("house") * 4 < getfodprice("hotel"))
+    {
+    	safeBuyBuilding('House');
+    }
+    if (getfodprice("mansion") * 2 < getfodprice("hotel"))
+    {
+    	safeBuyBuilding('Mansion');
+    }
+}
+
+function getfodprice(house)
+{
+	if (house == "hut") return getBuildingItemPrice(game.buildings.Hut, "food");
+	if (house == "house" && game.buildings.House.owned >= 1) return getBuildingItemPrice(game.buildings.House, "food");
+	if (house == "mansion" && game.buildings.Mansion.owned >= 1) return getBuildingItemPrice(game.buildings.Mansion, "food");
+	if (house == "hotel" && game.buildings.Hotel.owned >= 1) return getBuildingItemPrice(game.buildings.Hotel, "food");
+	return 0
 }
 
 function safeBuyJob(jobTitle, amount) {
