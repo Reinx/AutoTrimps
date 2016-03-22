@@ -312,9 +312,9 @@ function buyFoodEfficientHousing() {
 function getfodprice(house)
 {
 	if (house == "hut") return getBuildingItemPrice(game.buildings.Hut, "food");
-	if (house == "house" && game.buildings.House.owned >= 1) return getBuildingItemPrice(game.buildings.House, "food");
-	if (house == "mansion" && game.buildings.Mansion.owned >= 1) return getBuildingItemPrice(game.buildings.Mansion, "food");
-	if (house == "hotel" && game.buildings.Hotel.owned >= 1) return getBuildingItemPrice(game.buildings.Hotel, "food");
+	if (house == "house" && !game.buildings.House.locked) return getBuildingItemPrice(game.buildings.House, "food");
+	if (house == "mansion" && !game.buildings.Mansion.locked) return getBuildingItemPrice(game.buildings.Mansion, "food");
+	if (house == "hotel" && !game.buildings.Hotel.locked) return getBuildingItemPrice(game.buildings.Hotel, "food");
 	return 1000000000;
 }
 
@@ -1485,6 +1485,7 @@ function autoMap() {
          
          //if block is higher then damage then get 5 stacks and progress
          if (baseBlock >= enemydmg && game.global.mapBonus + 1 == 5) shouldDoMaps = false;
+         if (baseBlock >= enemydmg && game.global.challengeActive == 'Balance') shouldDoMaps = false;
          //if able to oneshot then progress
          if (baseDamage >= enemyhp) shouldDoMaps = false;
          //if able to oneshot using map stacks then get enough stacks and progress
