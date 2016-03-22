@@ -910,7 +910,13 @@ function initializeAutoTrimps() {
 }
 
 function easyMode() {
-    if (game.resources.trimps.realMax() > 3000000) {
+    if (game.global.turkimpTimer > 0)
+    {
+    	autoTrimpSettings.FarmerRatio.value = '0';
+        autoTrimpSettings.LumberjackRatio.value = '0';
+        autoTrimpSettings.MinerRatio.value = '1';
+    }
+    else if (game.resources.trimps.realMax() > 3000000) {
         autoTrimpSettings.FarmerRatio.value = '3';
         autoTrimpSettings.LumberjackRatio.value = '1';
         autoTrimpSettings.MinerRatio.value = '4';
@@ -1217,8 +1223,13 @@ function autoLevelEquipment() {
 function manualLabor() {
     var ManualGather = 'metal';
     var breedingTrimps = game.resources.trimps.owned - game.resources.trimps.employed;
+    var mintraps = 0;
     
-    if(breedingTrimps < 5 && game.buildings.Trap.owned == 0 && canAffordBuilding('Trap')) {
+    if (game.global.turkimpTimer > 0) 
+    {
+    	setGather('metal');
+    }
+    else if(breedingTrimps < 5 && game.buildings.Trap.owned == 0 && canAffordBuilding('Trap')) {
     	//safeBuyBuilding returns false if item is already in queue
     	if(!safeBuyBuilding('Trap'))
     	setGather('buildings');
@@ -1237,11 +1248,13 @@ function manualLabor() {
         // debug('Science needed ' + scienceNeeded);
         setGather('science');
     } 
-    else if (getPageSetting('TrapTrimps') && parseInt(getPageSetting('GeneticistTimer')) < getBreedTime(true) && game.buildings.Trap.owned < 1 && canAffordBuilding('Trap')) { 
+    else if (getPageSetting('TrapTrimps') && parseInt(getPageSetting('GeneticistTimer')) < getBreedTime(true) && game.buildings.Trap.owned == mintraps && canAffordBuilding('Trap')) { 
+    		    mintraps = 600;
     		    safeBuyBuilding('Trap');
     		    setGather('buildings');
     }
-	else if (getPageSetting('TrapTrimps') && parseInt(getPageSetting('GeneticistTimer')) < getBreedTime(true) && game.buildings.Trap.owned > 0) {
+	else if (getPageSetting('TrapTrimps') && parseInt(getPageSetting('GeneticistTimer')) < getBreedTime(true) && game.buildings.Trap.owned > mintraps) {
+		mintraps = 0;
 		setGather('trimps');
     }
 
@@ -1278,7 +1291,7 @@ function manualLabor() {
             }
             // debug('Current Stats ' + resource + ' is ' + currentRate + ' lowest ' + lowestResource + lowestResourceRate+ ' haveworkers ' +haveWorkers);
         }
-
+        
         if (game.global.playerGathering != lowestResource && !haveWorkers && !breedFire) {
             // debug('Set gather lowestResource');
             setGather(lowestResource);
@@ -1499,7 +1512,15 @@ function autoMap() {
          {
              if (game.global.mapBonus + 1 >= (((enemyhp / baseDamage) - 1) * 5) ) shouldDoMaps = false;
          }
-        
+        if (game.global.world % 5 == 1)
+        {
+        	var prestigesonmap = 3;
+        }
+        else
+        {
+        	var prestigesonmap = 2;
+        }
+        if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 == prestigesonmap && game.global.world < 40) shouldDoMaps = false;
         //if we are at max map bonus, and we don't need to farm, don't do maps
         if(game.global.mapBonus == 10 && !shouldFarm) shouldDoMaps = false;
         //if we are prestige mapping, force equip first mode
