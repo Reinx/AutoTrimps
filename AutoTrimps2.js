@@ -993,13 +993,19 @@ function buyBuildings() {
         safeBuyBuilding('Tribute');
     }
     var targetBreed = parseInt(getPageSetting('GeneticistTimer'));
-    //only buy nurseries if enabled,   and we need to lower our breed time, or our target breed time is 0, or we aren't trying to manage our breed time before geneticists, and they aren't locked
-    //even if we are trying to manage breed timer pre-geneticists, start buying nurseries once geneticists are unlocked AS LONG AS we can afford a geneticist (to prevent nurseries from outpacing geneticists soon after they are unlocked)
-    if ((targetBreed < getBreedTime() || targetBreed == 0 || !getPageSetting('ManageBreedtimer') || (!game.jobs.Geneticist.locked && canAffordJob('Geneticist', false))) && !game.buildings.Nursery.locked) {
-        if ((getPageSetting('MaxNursery') > game.buildings.Nursery.owned || getPageSetting('MaxNursery') == -1) && (getBuildingItemPrice(game.buildings.Nursery, "gems") < 0.05 * getBuildingItemPrice(game.buildings.Warpstation, "gems") || game.buildings.Warpstation.locked) && (getBuildingItemPrice(game.buildings.Nursery, "gems") < 0.05 * getBuildingItemPrice(game.buildings.Collector, "gems") || game.buildings.Collector.locked || !game.buildings.Warpstation.locked)) {
-            safeBuyBuilding('Nursery');
-        }
-    }
+    
+     if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 10 < getBuildingItemPrice(game.buildings.Hotel, "gems") && game.buildings.Hotel.owned >= 1)
+     {
+     	safeBuyBuilding('Nursery');
+     }
+     if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 20 < getBuildingItemPrice(game.buildings.Collector, "gems") && game.buildings.Collector.owned >= 1)
+     {
+     	safeBuyBuilding('Nursery');
+     }
+     if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 20 < getBuildingItemPrice(game.buildings.Warpstation, "gems") && game.buildings.Warpstation.owned >= 1)
+     {
+   	safeBuyBuilding('Nursery');
+     }
 }
 
 function setTitle() {
