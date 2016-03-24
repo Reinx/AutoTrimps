@@ -835,7 +835,7 @@ function getEnemyMaxHealth(zone, level = 30) {
     var amt = 0;
     //var level = 80;
     var world = zone;
-    amt += 130 * Math.sqrt(world) * Math.pow(3.265, world / 2));
+    amt += 130 * Math.sqrt(world) * Math.pow(3.265, world / 2);
     amt -= 110;
     if (world == 1 || world == 2 && level < 10) {
         amt *= 0.6;
