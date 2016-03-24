@@ -328,7 +328,7 @@ function updateCustomButtons() {
     if (autoTrimpSettings.RunMapsWhenStuck.enabled) document.getElementById("autoMapBtn").setAttribute("class", "btn fightBtn btn-success");
     else document.getElementById("autoMapBtn").setAttribute("class", "btn fightBtn btn-danger");
     //auto portal setting, hide until player has cleared zone 81
-    if (game.global.highestLevelCleared >= 80 ) document.getElementById("AutoPortal").style.display = '';
+    if (game.global.highestLevelCleared >= 40 ) document.getElementById("AutoPortal").style.display = '';
     else document.getElementById("AutoPortal").style.display = 'none';
     //custom auto portal value
     if (autoTrimpSettings.AutoPortal.selected == "Custom") document.getElementById("CustomAutoPortal").style.display = '';
