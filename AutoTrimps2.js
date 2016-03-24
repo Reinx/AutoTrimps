@@ -831,11 +831,11 @@ function getEnemyMaxAttack(world, level, name, diff) {
 	return Math.floor(amt);
 }
 
-function getEnemyMaxHealth(zone) {
+function getEnemyMaxHealth(zone, level = 30) {
     var amt = 0;
-    var level = 30;
+    //var level = 80;
     var world = zone;
-    amt += 130 * Math.sqrt(world * Math.pow(3.265, world));
+    amt += 130 * Math.sqrt(world) * Math.pow(3.265, world / 2));
     amt -= 110;
     if (world == 1 || world == 2 && level < 10) {
         amt *= 0.6;
@@ -846,9 +846,9 @@ function getEnemyMaxHealth(zone) {
         amt = (amt * 0.5) + ((amt * 0.8) * (level / 100));
         amt *= Math.pow(1.1, world - 59);
     }
-    amt *= 1.1;
-    amt *= game.badGuys["Grimp"].health;
-    amt *= 0.84;
+    if (level = 30) amt *= 1.1;
+    amt *= 1.2;
+    //amt *= 0.84;
     return Math.floor(amt);
 }
 
