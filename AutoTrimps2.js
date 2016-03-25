@@ -1002,15 +1002,15 @@ function buyBuildings() {
     }
     var targetBreed = parseInt(getPageSetting('GeneticistTimer'));
     
-     if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 10 < getBuildingItemPrice(game.buildings.Hotel, "gems") && game.buildings.Hotel.owned >= 1 && game.buildings.Nursery.owned >= 1)
+     if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 10 < getBuildingItemPrice(game.buildings.Hotel, "gems") && game.buildings.Hotel.owned >= 1 && !game.buildings.Nursery.locked)
      {
      	safeBuyBuilding('Nursery');
      }
-     if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 20 < getBuildingItemPrice(game.buildings.Collector, "gems") && game.buildings.Collector.owned >= 1 && game.buildings.Nursery.owned >= 1)
+     if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 20 < getBuildingItemPrice(game.buildings.Collector, "gems") && game.buildings.Collector.owned >= 1 && !game.buildings.Nursery.locked)
      {
      	safeBuyBuilding('Nursery');
      }
-     if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 20 < getBuildingItemPrice(game.buildings.Warpstation, "gems") && game.buildings.Warpstation.owned >= 1 && game.buildings.Nursery.owned >= 1)
+     if (getBuildingItemPrice(game.buildings.Nursery, "gems") * 20 < getBuildingItemPrice(game.buildings.Warpstation, "gems") && game.buildings.Warpstation.owned >= 1 && !game.buildings.Nursery.locked)
      {
    	safeBuyBuilding('Nursery');
      }
