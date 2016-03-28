@@ -1511,13 +1511,17 @@ function autoMap() {
          {
              if (game.global.mapBonus + 1 >= (((enemyhp / baseDamage) - 1) * 5) ) shouldDoMaps = false;
          }
-        if (game.global.world % 5 == 1)
+        if (game.global.world % 5 == 1 && game.global.world >= 11)
         {
         	var prestigesonmap = 3;
         }
-        else
+        else if (game.global.world >= 11)
         {
         	var prestigesonmap = 2;
+        }
+        else
+        {
+        	var prestigesonmap = 0;
         }
         if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 < prestigesonmap) shouldDoMaps = true;
         if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 >= prestigesonmap && game.global.world < 39) shouldDoMaps = false;
