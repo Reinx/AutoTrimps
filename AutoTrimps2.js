@@ -1498,18 +1498,18 @@ function autoMap() {
        var enemyhp = (getEnemyMaxHealth(game.global.world) * 0.9);
         if (game.global.challengeActive == 'Lead') {
         	enemydmg = ((getEnemyMaxAttack(game.global.world + 1, 99, 'Snimp', 1) / 12) * 10);
-        	enemyhp = (getEnemyMaxHealth(game.global.world + 1) * 0.9);
+        	enemyhp = (getEnemyMaxHealth(game.global.world + 1));
         }
-         
+        var critidmg = baseDamage * 5
          //if block is higher then damage then get 5 stacks and progress
          if (baseBlock >= enemydmg && game.global.mapBonus + 1 >= 5) shouldDoMaps = false;
          if (baseBlock >= enemydmg && game.global.challengeActive == 'Balance') shouldDoMaps = false;
          //if able to oneshot then progress
-         if (baseDamage >= enemyhp) shouldDoMaps = false;
+         if (critidmg >= enemyhp) shouldDoMaps = false;
          //if able to oneshot using map stacks then get enough stacks and progress
-         if (baseDamage * 3 > enemyhp)
+         if (critidmg * 3 > enemyhp)
          {
-             if (game.global.mapBonus + 1 >= (((enemyhp / baseDamage) - 1) * 5) ) shouldDoMaps = false;
+             if (game.global.mapBonus + 1 >= (((enemyhp / critidmg) - 1) * 5) ) shouldDoMaps = false;
          }
         if (game.global.world % 5 == 1 && game.global.world >= 11)
         {
