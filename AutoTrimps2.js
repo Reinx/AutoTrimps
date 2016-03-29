@@ -1537,7 +1537,7 @@ function autoMap() {
         var shouldDoMaps = !enoughHealth || !enoughDamage;
         var shouldDoMap = "world";
        
-        var enemydmg = ((getEnemyMaxAttack(game.global.world, 99, 'Snimp') / 12) * 10);
+        var enemydmg = getEnemyMaxAttack(game.global.world, 99, 'Snimp');
        var enemyhp = (getEnemyMaxHealth(game.global.world) * 0.9);
         if (game.global.challengeActive == 'Lead') {
         	enemydmg = ((getEnemyMaxAttack(game.global.world + 1, 99, 'Snimp', 1) / 12) * 10);
