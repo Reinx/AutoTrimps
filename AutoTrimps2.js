@@ -952,7 +952,7 @@ function easyMode() {
                 autoTrimpSettings.LumberjackRatio.value = '1';
                 autoTrimpSettings.MinerRatio.value = '0';
     	}
-    	else if ((getturkimpgather() == 'food')
+    	else if (getturkimpgather() == 'food')
     	{
     		autoTrimpSettings.FarmerRatio.value = '1';
                 autoTrimpSettings.LumberjackRatio.value = '0';
