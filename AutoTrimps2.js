@@ -1544,6 +1544,9 @@ function autoMap() {
         	enemyhp = (getEnemyMaxHealth(game.global.world + 1));
         }
         var critidmg = baseDamage * 5
+        var abletosurvive = (baseHealth > enemydmg);
+        if (abletosurvive) shouldFarm = false;
+        if (!abletosurvive) shouldFarm = true;
          //if block is higher then damage then get 5 stacks and progress
          if (baseBlock >= enemydmg && game.global.mapBonus + 1 >= 5) shouldDoMaps = false;
          if (baseBlock >= enemydmg && game.global.challengeActive == 'Balance') shouldDoMaps = false;
@@ -1641,9 +1644,9 @@ function autoMap() {
 	            	//break to prevent finishing map to finish a challenge?
 	            	//continue to check for doable map?
 	            	var diff = parseInt(getPageSetting('VoidCheck')) > 0 ? parseInt(getPageSetting('VoidCheck')) : 2;
-	            	if(ourHealth/diff < eAttack - baseBlock) {
+	            	if(ourHealth < (eAttack * diff) - baseBlock) {
 	            		shouldFarm = true;
-	            		voidCheckPercent = Math.round((ourHealth/diff)/(eAttack-baseBlock)*100);
+	            		voidCheckPercent = Math.round((ourHealth)/((eAttack * diff) - baseBlock)*100);
 	            		break;
 	            	}
 	            	else {
@@ -1739,7 +1742,7 @@ function autoMap() {
             	}
             	
                 //if we are doing the right map, and it's not a norecycle (unique) map, and we aren't going to hit max map bonus
-                if (shouldDoMap == game.global.currentMapId && !game.global.mapsOwnedArray[getMapIndex(game.global.currentMapId)].noRecycle && (game.global.mapBonus < 9 || shouldFarm || stackingTox)) {
+                if (shouldDoMap == game.global.currentMapId && !game.global.mapsOwnedArray[getMapIndex(game.global.currentMapId)].noRecycle && (game.global.mapBonus < 4 || shouldFarm || stackingTox)) {
                     var targetPrestige = autoTrimpSettings.Prestige.selected;
                     //make sure repeat map is on
                     if (!game.global.repeatMap) {
