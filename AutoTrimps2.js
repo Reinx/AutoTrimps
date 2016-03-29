@@ -26,6 +26,11 @@ var newCoord = false;
 var noFight = 0;
 
 var mintraps = 1;
+var tgtime = 0;
+var currgather = 'metal'
+var nextgather = 'wood'
+var prevgather = 'food'
+var lasttt = 0;
 
 
 var baseDamage = 0;
@@ -320,6 +325,28 @@ function getfodprice(house)
 	return 1000000000;
 }
 
+function getturkimpgather()
+{
+	updatetgt();
+	if (tgtime >= 60000)
+	{
+		var kappa = currgather;
+		currgather = nextgather;
+		nextgather = prevgather;
+		prevgather = kappa;
+		tgtime = 0;
+	}
+	return currgather;
+}
+
+function updatetgt()
+{
+	if (game.global.turkimpTimer > lasttt)
+	{
+		lasttt = game.global.turkimpTimer;
+	}
+	tgtime += (lasttt - game.global.turkimpTimer);
+}
 function safeBuyJob(jobTitle, amount) {
     if (amount === undefined) amount = 1;
     if (amount === 0) return false;
@@ -912,9 +939,24 @@ function initializeAutoTrimps() {
 function easyMode() {
     if (game.global.turkimpTimer > 0 && game.global.world > (game.global.highestLevelCleared / 2))
     {
-    	autoTrimpSettings.FarmerRatio.value = '0';
-        autoTrimpSettings.LumberjackRatio.value = '0';
-        autoTrimpSettings.MinerRatio.value = '1';
+    	if (getturkimpgather() == 'metal')
+    	{
+    	        autoTrimpSettings.FarmerRatio.value = '0';
+                autoTrimpSettings.LumberjackRatio.value = '0';
+                autoTrimpSettings.MinerRatio.value = '1';
+    	}
+    	else if (getturkimpgather() == 'wood')
+    	{
+    		autoTrimpSettings.FarmerRatio.value = '0';
+                autoTrimpSettings.LumberjackRatio.value = '1';
+                autoTrimpSettings.MinerRatio.value = '0';
+    	}
+    	else
+    	{
+    		autoTrimpSettings.FarmerRatio.value = '1';
+                autoTrimpSettings.LumberjackRatio.value = '0';
+                autoTrimpSettings.MinerRatio.value = '0';
+    	}
     }
     else if (game.resources.trimps.realMax() > 3000000) {
         autoTrimpSettings.FarmerRatio.value = '3';
@@ -1226,7 +1268,7 @@ function manualLabor() {
     
     if (game.global.turkimpTimer > 0 && game.global.world > (game.global.highestLevelCleared / 2)) 
     {
-    	setGather('metal');
+    	setGather(getturkimpgather());
     }
     else if(breedingTrimps < 5 && game.buildings.Trap.owned == 0 && canAffordBuilding('Trap')) {
     	//safeBuyBuilding returns false if item is already in queue
