@@ -346,6 +346,7 @@ function updatetgt()
 		lasttt = game.global.turkimpTimer;
 	}
 	tgtime += (lasttt - game.global.turkimpTimer);
+	lasttt = (game.global.turkimpTimer);
 }
 function safeBuyJob(jobTitle, amount) {
     if (amount === undefined) amount = 1;
