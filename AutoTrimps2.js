@@ -1543,13 +1543,22 @@ function autoMap() {
         	enemydmg = ((getEnemyMaxAttack(game.global.world + 1, 99, 'Snimp', 1) / 12) * 10);
         	enemyhp = (getEnemyMaxHealth(game.global.world + 1));
         }
-        var critidmg = baseDamage * 5
+        if (game.global.world >= 60)
+        {
+        	enemydmg = ((enemydmg * 0.2) + ((enemydmg * 0.8) - baseBlock));
+        }
+        else
+        {
+        	enemydmg -= baseBlock;
+        	if (enemydmg <= 0) enemydmg = 0;
+        }
+        var critidmg = baseDamage * 5;
         var abletosurvive = (baseHealth > enemydmg);
         if (abletosurvive) shouldFarm = false;
         if (!abletosurvive) shouldFarm = true;
          //if block is higher then damage then get 5 stacks and progress
-         if (baseBlock >= enemydmg && game.global.mapBonus + 1 >= 5) shouldDoMaps = false;
-         if (baseBlock >= enemydmg && game.global.challengeActive == 'Balance') shouldDoMaps = false;
+         if (enemydmg = 0 && game.global.mapBonus + 1 >= 5) shouldDoMaps = false;
+         if (enemydmg = 0 && game.global.challengeActive == 'Balance') shouldDoMaps = false;
          //if able to oneshot then progress
          if (critidmg >= enemyhp) shouldDoMaps = false;
          //if able to oneshot using map stacks then get enough stacks and progress
