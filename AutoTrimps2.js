@@ -834,7 +834,7 @@ function getEnemyMaxAttack(zone) {
 function getEnemyMaxAttack(world, level, name, diff) {
 	var amt = 0;
 	var adjWorld = ((world - 1) * 100) + level;
-	amt += 50 * Math.sqrt(world * Math.pow(3.27, world));
+	amt += 50 * Math.sqrt(world) * Math.pow(3.27, world / 2);
 	amt -= 10;
 	if (world == 1){
 		amt *= 0.35;
@@ -1537,7 +1537,7 @@ function autoMap() {
         var shouldDoMaps = !enoughHealth || !enoughDamage;
         var shouldDoMap = "world";
        
-        var enemydmg = ((getEnemyMaxAttack(game.global.world, 99, 'Snimp', 1) / 12) * 10);
+        var enemydmg = ((getEnemyMaxAttack(game.global.world, 99, 'Snimp') / 12) * 10);
        var enemyhp = (getEnemyMaxHealth(game.global.world) * 0.9);
         if (game.global.challengeActive == 'Lead') {
         	enemydmg = ((getEnemyMaxAttack(game.global.world + 1, 99, 'Snimp', 1) / 12) * 10);
