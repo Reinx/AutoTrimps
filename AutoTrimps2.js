@@ -1554,6 +1554,7 @@ function autoMap() {
         }
         var critidmg = baseDamage * 5;
         var abletosurvive = (baseHealth > enemydmg);
+        if (game.global.world >= 60 && !abletosurvive) abletosurvive = (baseHealth * 4 > enemydmg + baseBlock / 2)
         if (abletosurvive) shouldFarm = false;
         if (!abletosurvive) shouldFarm = true;
          //if block is higher then damage then get 5 stacks and progress
