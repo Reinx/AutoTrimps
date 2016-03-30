@@ -1822,12 +1822,13 @@ function autoMap() {
                 }
                 //if we are farming (for resources), make sure it's metal, and put low priority on size
                 if(shouldFarm) {
-                	biomeAdvMapsSelect.value = "Mountain";
-                	while (sizeAdvMapsRange.value > 0 && updateMapCost(true) > game.resources.fragments.owned) {
-                    		sizeAdvMapsRange.value = sizeAdvMapsRange.value - 1;
-                	}
                 	while (lootAdvMapsRange.value > 0 && updateMapCost(true) > game.resources.fragments.owned) {
-                    	lootAdvMapsRange.value = lootAdvMapsRange.value - 1;
+                    		lootAdvMapsRange.value = lootAdvMapsRange.value - 1;
+                	}
+                	biomeAdvMapsSelect.value = "Mountain";
+                	if (updateMapCost(true) > game.resources.fragments.owned) biomeAdvMapsSelect.value = "Random";
+                	while (sizeAdvMapsRange.value > 0 && updateMapCost(true) > game.resources.fragments.owned) {
+                    	sizeAdvMapsRange.value = sizeAdvMapsRange.value - 1;
                 	}
                 }
 		else {
