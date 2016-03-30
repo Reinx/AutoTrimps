@@ -720,7 +720,7 @@ function evaluateEfficiency(equipName) {
         }
     }
     //wall (don't buy any more equipment, buy prestige first) is true if the limit equipment option is on and we are past our limit 
-    if (gameResource.level > 10 - gameResource.prestige && getPageSetting('LimitEquipment')) {
+    if (gameResource.level >= 4 && !game.upgrades[equip.Upgrade].locked && getPageSetting('LimitEquipment')) {
         Wall = true;
     }
     return {
