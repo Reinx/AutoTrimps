@@ -1560,7 +1560,7 @@ function autoMap() {
         if (abletosurvive) shouldFarm = false;
         if (!abletosurvive) shouldFarm = true;
          //if block is higher then damage then get 5 stacks and progress
-         if (enemydmg = 0) shouldDoMaps = false;
+         if (enemydmg == 0) shouldDoMaps = false;
          //if able to oneshot then progress
          if (game.global.world >= 60 && baseHealth / 2 > enemydmghf) critidmg *= 4
          if (critidmg >= enemyhp) shouldDoMaps = false;
