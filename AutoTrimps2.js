@@ -963,10 +963,10 @@ function easyMode() {
         autoTrimpSettings.FarmerRatio.value = '3';
         autoTrimpSettings.LumberjackRatio.value = '1';
         autoTrimpSettings.MinerRatio.value = '4';
-    } else if (game.resources.trimps.realMax() > 300000) {
-        autoTrimpSettings.FarmerRatio.value = '3';
-        autoTrimpSettings.LumberjackRatio.value = '3';
-        autoTrimpSettings.MinerRatio.value = '5';
+    } else if (game.resources.trimps.realMax() > 300000 && game.global.world >= 60) {
+        autoTrimpSettings.FarmerRatio.value = '2';
+        autoTrimpSettings.LumberjackRatio.value = '1';
+        autoTrimpSettings.MinerRatio.value = '2';
     } else {
         autoTrimpSettings.FarmerRatio.value = '1';
         autoTrimpSettings.LumberjackRatio.value = '1';
@@ -982,7 +982,8 @@ function buyUpgrades() {
         var available = (gameUpgrade.allowed > gameUpgrade.done && canAffordTwoLevel(gameUpgrade));
         if (upgrade == 'Coordination' && !canAffordCoordinationTrimps()) continue;
         if (upgrade == 'Shieldblock' && !getPageSetting('BuyShieldblock')) continue;
-        if (upgrade == 'Gigastation' && (game.global.lastWarp ? game.buildings.Warpstation.owned < (Math.floor(game.upgrades.Gigastation.done * getPageSetting('DeltaGigastation')) + getPageSetting('FirstGigastation')) : game.buildings.Warpstation.owned < getPageSetting('FirstGigastation'))) continue;
+        if (upgrade == 'Gigastation' && game.upgrades.Coordination.locked) continue;
+        if (upgrade == 'Gigastation' && (game.global.lastWarp > game.buildings.Warpstation.owned - (Math.floor(game.upgrades.Gigastation.done * getPageSetting('DeltaGigastation'))))) continue;
         if ((!game.upgrades.Scientists.done && upgrade != 'Battle') ? (available && upgrade == 'Scientists' && game.upgrades.Scientists.allowed) : (available)) {
             buyUpgrade(upgrade, true, true);
             if(upgrade == 'Coordination') newCoord = true;
@@ -1539,6 +1540,7 @@ function autoMap() {
        
         var enemydmg = getEnemyMaxAttack(game.global.world, 99, 'Snimp');
        var enemyhp = (getEnemyMaxHealth(game.global.world, 99) * 0.9);
+       if (game.global.world >= 60) var enemydmghf = ((enemydmg * 0.2) + ((enemydmg * 0.8) - (baseBlock / 2)));
         if (game.global.challengeActive == 'Lead') {
         	enemydmg = ((getEnemyMaxAttack(game.global.world + 1, 99, 'Snimp', 1) / 12) * 10);
         	enemyhp = (getEnemyMaxHealth(game.global.world + 1));
@@ -1554,13 +1556,13 @@ function autoMap() {
         }
         var critidmg = baseDamage * 5;
         var abletosurvive = (baseHealth > enemydmg);
-        if (game.global.world >= 60 && !abletosurvive) abletosurvive = (baseHealth * 4 > enemydmg + baseBlock / 2)
+        if (game.global.world >= 60 && !abletosurvive) abletosurvive = (baseHealth * 4 > enemydmghf)
         if (abletosurvive) shouldFarm = false;
         if (!abletosurvive) shouldFarm = true;
          //if block is higher then damage then get 5 stacks and progress
-         if (enemydmg = 0 && game.global.mapBonus + 1 >= 5) shouldDoMaps = false;
-         if (enemydmg = 0 && game.global.challengeActive == 'Balance') shouldDoMaps = false;
+         if (enemydmg = 0) shouldDoMaps = false;
          //if able to oneshot then progress
+         if (game.global.world >= 60 && baseHealth / 2 > enemydmghf) critidmg *= 4
          if (critidmg >= enemyhp) shouldDoMaps = false;
          //if able to oneshot using map stacks then get enough stacks and progress
          if (critidmg * 3 > enemyhp)
