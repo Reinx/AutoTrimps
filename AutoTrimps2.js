@@ -983,7 +983,7 @@ function buyUpgrades() {
         if (upgrade == 'Coordination' && !canAffordCoordinationTrimps()) continue;
         if (upgrade == 'Shieldblock' && !getPageSetting('BuyShieldblock')) continue;
         if (upgrade == 'Gigastation' && game.upgrades.Coordination.locked) continue;
-        if (upgrade == 'Gigastation' && (game.global.lastWarp > game.buildings.Warpstation.owned - (Math.floor(game.upgrades.Gigastation.done * getPageSetting('DeltaGigastation'))))) continue;
+        if (upgrade == 'Gigastation' && getPageSetting('FirstGigastation')) > game.buildings.Warpstation.owned && (game.global.lastWarp > game.buildings.Warpstation.owned - (Math.floor(game.upgrades.Gigastation.done * getPageSetting('DeltaGigastation'))))) continue;
         if ((!game.upgrades.Scientists.done && upgrade != 'Battle') ? (available && upgrade == 'Scientists' && game.upgrades.Scientists.allowed) : (available)) {
             buyUpgrade(upgrade, true, true);
             if(upgrade == 'Coordination') newCoord = true;
