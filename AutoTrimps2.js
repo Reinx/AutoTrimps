@@ -348,6 +348,24 @@ function updatetgt()
 	tgtime += (lasttt - game.global.turkimpTimer);
 	lasttt = (game.global.turkimpTimer);
 }
+
+function getdeltagiga()
+{
+	var breakloop = false;
+	var i = 1;
+	var unusedgiga = 0;
+	while (!breakloop)
+	{
+		if (i > game.upgrades.Gigastation.done)
+		{
+			return Math.floor(unusedgiga + getPageSetting('DeltaGigastation'));
+			breakloop = true
+		}
+		unusedgiga = (unusedgiga + getPageSetting('DeltaGigastation')) - Math.floor(getPageSetting('DeltaGigastation') + unusedgiga);
+		i += 1;
+	}
+	return Math.floor(unusedgiga + getPageSetting('DeltaGigastation'));
+}
 function safeBuyJob(jobTitle, amount) {
     if (amount === undefined) amount = 1;
     if (amount === 0) return false;
