@@ -935,7 +935,7 @@ function getBreedTime(remaining) {
     timeRemaining += " / " + fullBreed;
 
     // debug('Time to breed is ' +Math.floor(totalTime));
-    return Math.floor(totalTime);
+    return totalTime;
 }
 
 
