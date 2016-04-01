@@ -900,15 +900,8 @@ function getEnemyMaxHealth(zone, level = 30) {
 
 function getBreedTime(remaining) {
     var trimps = game.resources.trimps;
-	checkAchieve("trimps", trimps.owned);
     var breeding = trimps.owned - trimps.employed;
-	var trimpsMax = trimps.realMax();
-	
-    if (breeding < 2 || game.global.challengeActive == "Trapper") {
-        updatePs(0, true);
-		document.getElementById("trimpsTimeToFill").innerHTML = "";
-        return;
-    }
+    var trimpsMax = trimps.realMax();
     var potencyMod = trimps.potency;
 	//Broken Planet
 	if (game.global.brokenPlanet) potencyMod /= 10;
@@ -926,14 +919,12 @@ function getBreedTime(remaining) {
 	}
 	potencyMod = calcHeirloomBonus("Shield", "breedSpeed", potencyMod);
 	breeding = breeding * potencyMod;
-    updatePs(breeding, true);
 	potencyMod = (1 + (potencyMod / 10));
 	var timeRemaining = log10((trimpsMax - trimps.employed) / (trimps.owned - trimps.employed)) / log10(potencyMod);
 	timeRemaining /= 10;
 	timeRemaining = (game.options.menu.showFullBreed.enabled > 0) ? timeRemaining.toFixed(1) : Math.ceil(timeRemaining);
 	timeRemaining += " Secs";
 	var fullBreed = 0;
-	if (game.options.menu.showFullBreed.enabled){
 		var adjustedMax = (game.portal.Coordinated.level) ? game.portal.Coordinated.currentSend : trimps.maxSoldiers;
 		var totalTime = log10((trimpsMax - trimps.employed) / (trimpsMax - adjustedMax - trimps.employed)) / log10(potencyMod);
 		// if (game.options.menu.showFullBreed.enabled == 1) totalTime = log10((trimpsMax - trimps.employed) / (trimpsMax - adjustedMax - trimps.employed)) / log10(potencyMod);
@@ -945,21 +936,6 @@ function getBreedTime(remaining) {
 		fullBreed = totalTime.toFixed(1) + " Secs";
 		return totalTime.toFixed(1);
 		timeRemaining += " / " + fullBreed;
-	}
-	
-	if (trimps.owned >= trimpsMax) {
-        trimps.owned = trimpsMax;
-		document.getElementById("trimpsTimeToFill").innerHTML = (fullBreed) ? fullBreed : "";
-        return;
-    }
-	document.getElementById("trimpsTimeToFill").innerHTML = timeRemaining;	
-    trimps.owned += breeding / game.settings.speed;
-	if (trimps.owned >= trimpsMax) trimps.owned = trimpsMax;
-	if (game.portal.Anticipation.level) game.global.lastBreedTime += (1000 / game.settings.speed);
-	if (game.jobs.Geneticist.locked == 0) {
-		if (game.global.lowestGen < 0) game.global.lowestGen = game.jobs.Geneticist.owned;
-		else if (game.jobs.Geneticist.owned < game.global.lowestGen) game.global.lowestGen = game.jobs.Geneticist.owned;
-	}
 }
 
 
