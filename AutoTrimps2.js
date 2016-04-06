@@ -1539,7 +1539,8 @@ function autoMap() {
         var enemyDamage = getEnemyMaxAttack(game.global.world + 1, 30, 'Snimp', .85);
         var enemyHealth = getEnemyMaxHealth(game.global.world + 1);
       
-        needPrestige = (autoTrimpSettings.Prestige.selected != "Off" && game.mapUnlocks[autoTrimpSettings.Prestige.selected].last <= game.global.world - 5);
+        needPrestige = (game.upgrades[autoTrimpSettings.Prestige.selected].done == game.upgrades[autoTrimpSettings.Prestige.selected].allowed && autoTrimpSettings.Prestige.selected != "Off" && game.mapUnlocks[autoTrimpSettings.Prestige.selected].last <= game.global.world - 5);
+        
         if(game.global.challengeActive == "Toxicity") {
     	//ignore damage changes (which would effect how much health we try to buy) entirely since we die in 20 attacks anyway?
     	//enemyDamage *= 2;
@@ -1581,7 +1582,7 @@ function autoMap() {
          //if block is higher then damage then get 5 stacks and progress
          if (enemydmg == 0) shouldDoMaps = false;
          //if able to oneshot then progress
-         if (game.global.world >= 60 && baseHealth / 2 > enemydmghf) critidmg *= 4
+         if (game.global.world >= 70 && baseHealth / 2 > enemydmghf) critidmg *= 4
          if (critidmg >= enemyhp) shouldDoMaps = false;
          //if able to oneshot using map stacks then get enough stacks and progress
          if (critidmg * 3 > enemyhp)
