@@ -328,7 +328,7 @@ function getfodprice(house)
 function getturkimpgather()
 {
 	updatetgt();
-	if (tgtime >= 60000)
+	if (tgtime >= 15000)
 	{
 		var kappa = currgather;
 		currgather = nextgather;
