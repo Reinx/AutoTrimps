@@ -1305,12 +1305,12 @@ function manualLabor() {
         // debug('Gathering buildings??');
         setGather('buildings');
     }
-    else if (game.global.turkimpTimer > 0 && game.global.world > (game.global.highestLevelCleared / 2)) setGather(getturkimpgather());
     //if we have some upgrades sitting around which we don't have enough science for, gather science
     else if (game.resources.science.owned < scienceNeeded && document.getElementById('scienceCollectBtn').style.display != 'none' && document.getElementById('science').style.visibility != 'hidden') {
         // debug('Science needed ' + scienceNeeded);
         setGather('science');
-    } 
+    }
+    else if (game.global.turkimpTimer > 0 && game.global.world > 20) setGather(getturkimpgather());
     else if (getPageSetting('TrapTrimps') && parseInt(getPageSetting('GeneticistTimer')) < getBreedTime(true) && game.buildings.Trap.owned < mintraps && canAffordBuilding('Trap')) { 
     		    mintraps = 600;
     		    safeBuyBuilding('Trap');
@@ -1320,6 +1320,7 @@ function manualLabor() {
 		mintraps = 1;
 		setGather('trimps');
     }
+    else if (game.global.turkimpTimer > 0) setGather(getturkimpgather());
 
     else {
         var manualResourceList = {
