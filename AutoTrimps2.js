@@ -1287,11 +1287,11 @@ function manualLabor() {
     var ManualGather = 'metal';
     var breedingTrimps = game.resources.trimps.owned - game.resources.trimps.employed;
     
-    if (game.global.turkimpTimer > 0 && game.global.world > (game.global.highestLevelCleared / 2)) 
-    {
-    	setGather(getturkimpgather());
-    }
-    else if(breedingTrimps < 5 && game.buildings.Trap.owned == 0 && canAffordBuilding('Trap')) {
+    //if (game.global.turkimpTimer > 0 && game.global.world > (game.global.highestLevelCleared / 2)) 
+    //{
+    	//setGather(getturkimpgather());
+    //}
+    if(breedingTrimps < 5 && game.buildings.Trap.owned == 0 && canAffordBuilding('Trap')) {
     	//safeBuyBuilding returns false if item is already in queue
     	if(!safeBuyBuilding('Trap'))
     	setGather('buildings');
@@ -1305,6 +1305,7 @@ function manualLabor() {
         // debug('Gathering buildings??');
         setGather('buildings');
     }
+    else if (game.global.turkimpTimer > 0 && game.global.world > (game.global.highestLevelCleared / 2)) setGather(getturkimpgather());
     //if we have some upgrades sitting around which we don't have enough science for, gather science
     else if (game.resources.science.owned < scienceNeeded && document.getElementById('scienceCollectBtn').style.display != 'none' && document.getElementById('science').style.visibility != 'hidden') {
         // debug('Science needed ' + scienceNeeded);
