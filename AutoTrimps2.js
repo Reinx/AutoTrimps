@@ -899,6 +899,12 @@ function getEnemyMaxHealth(zone, level = 30) {
 }
 
 function getBreedTime(remaining) {
+    //reduce cpu usage when showfullbreed is enabled
+    if (game.options.menu.showFullBreed.enabled)
+    {
+    	var bts = document.getElementById("trimpsTimeToFill").innerHTML.split(" / ")
+    	return bts[bts.length - 1].split(" Secs")[0]
+    }
     var trimps = game.resources.trimps;
     var breeding = trimps.owned - trimps.employed;
     var trimpsMax = trimps.realMax();
