@@ -1609,6 +1609,7 @@ function autoMap() {
         {
         	var prestigesonmap = 0;
         }
+        if (game.global.challengeActive == 'Mapocalypse') shouldDoMaps = false;
         if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 < prestigesonmap) shouldDoMaps = true;
         if (game.global.challengeActive == 'Balance' && game.global.mapBonus + 1 >= prestigesonmap && game.global.world < 39) shouldDoMaps = false;
         if (game.global.challengeActive == 'Balance' && game.global.world == 40) shouldDoMaps = false;
@@ -2117,7 +2118,7 @@ function manageGenes() {
 setTimeout(delayStart, 2500);
 
 function mainLoop() {
-	game.global.addonUser = true;
+	//game.global.addonUser = true; what was this for?
 	if(getPageSetting('PauseScript')) return;
     setTitle();
     setScienceNeeded();
