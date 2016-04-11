@@ -366,6 +366,15 @@ function getdeltagiga()
 	}
 	return Math.floor(unusedgiga + getPageSetting('DeltaGigastation'));
 }
+
+function prestigeonUpgrades()
+{
+	for (i in equipmentList)
+	{
+		if (!game.upgrades[equipmentList[i].Upgrade].locked) return true;
+	}
+	return false;
+}
 function safeBuyJob(jobTitle, amount) {
     if (amount === undefined) amount = 1;
     if (amount === 0) return false;
@@ -1548,7 +1557,7 @@ function autoMap() {
         var enemyHealth = getEnemyMaxHealth(game.global.world + 1);
       
         needPrestige = (game.upgrades[autoTrimpSettings.Prestige.selected].done == game.upgrades[autoTrimpSettings.Prestige.selected].allowed && autoTrimpSettings.Prestige.selected != "Off" && game.mapUnlocks[autoTrimpSettings.Prestige.selected].last <= game.global.world - 5);
-        
+        if (needPrestige) needPrestige = !prestigeonUpgrades();
         if(game.global.challengeActive == "Toxicity") {
     	//ignore damage changes (which would effect how much health we try to buy) entirely since we die in 20 attacks anyway?
     	//enemyDamage *= 2;
@@ -1755,7 +1764,7 @@ function autoMap() {
         	//if shouldDoMap != world, it already has a map ID and will be run below
             if (shouldDoMap == "world") {
             	//if shouldFarm is true, use a siphonology adjusted map, as long as we aren't trying to prestige
-            	if (shouldDoMaps && shouldFarm && !needPrestige) shouldDoMap = game.global.mapsOwnedArray[siphonMap].id;
+            	if ((shouldDoMaps || shouldFarm) && !needPrestige) shouldDoMap = game.global.mapsOwnedArray[siphonMap].id;
                 else if (game.global.world == game.global.mapsOwnedArray[highestMap].level) {
                     shouldDoMap = game.global.mapsOwnedArray[highestMap].id;
                 } else {
