@@ -131,6 +131,80 @@ var equipmentList = {
     }
 };
 
+var equipmentListM = {
+    'Dagger': {
+        Upgrade: 'Dagadder',
+        Stat: 'attack',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Boots': {
+        Upgrade: 'Bootboost',
+        Stat: 'health',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Mace': {
+        Upgrade: 'Megamace',
+        Stat: 'attack',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Helmet': {
+        Upgrade: 'Hellishmet',
+        Stat: 'health',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Polearm': {
+        Upgrade: 'Polierarm',
+        Stat: 'attack',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Pants': {
+        Upgrade: 'Pantastic',
+        Stat: 'health',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Battleaxe': {
+        Upgrade: 'Axeidic',
+        Stat: 'attack',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Shoulderguards': {
+        Upgrade: 'Smoldershoulder',
+        Stat: 'health',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Greatsword': {
+        Upgrade: 'Greatersword',
+        Stat: 'attack',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Breastplate': {
+        Upgrade: 'Bestplate',
+        Stat: 'health',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Arbalest': {
+        Upgrade: 'Harmbalest',
+        Stat: 'attack',
+        Resource: 'metal',
+        Equip: true
+    },
+    'Gambeson': {
+        Upgrade: 'GambesOP',
+        Stat: 'health',
+        Resource: 'metal',
+        Equip: true
+    },
+};
 var upgradeList = ['Coordination', 'Speedminer', 'Speedlumber', 'Speedfarming', 'Speedscience', 'Megaminer', 'Megalumber', 'Megafarming', 'Megascience', 'Efficiency', 'TrainTacular', 'Miners', 'Scientists', 'Trainers', 'Explorers', 'Blockmaster', 'Battle', 'Bloodlust', 'Bounty', 'Egg', 'Anger', 'Formations', 'Dominance', 'Barrier', 'UberHut', 'UberHouse', 'UberMansion', 'UberHotel', 'UberResort', 'Trapstorm', 'Gigastation', 'Shieldblock'];
 var housingList = ['Hut', 'House', 'Mansion', 'Hotel', 'Resort', 'Gateway', 'Collector', 'Warpstation'];
 
@@ -369,10 +443,15 @@ function getdeltagiga()
 
 function prestigeonUpgrades()
 {
-	for (i in equipmentList)
+        var oldi;
+        var oldi2;
+	for (i in equipmentListM)
 	{
+		if (game.upgrades[equipmentListM[i].Upgrade].allowed < game.upgrades[equipmentListM[oldi2].Upgrade].done) return false;
+		if (!game.upgrades[equipmentListM[i].Upgrade].locked && !(equipmentListM[i] == "Gym" || equipmentListM[i] == "Shield")) return true;
+	        oldi2 = oldi;
+	        oldi = i;
 		
-		if (!game.upgrades[equipmentList[i].Upgrade].locked && !(equipmentList[i] == "Gym" || equipmentList[i] == "Shield")) return true;
 	}
 	return false;
 }
