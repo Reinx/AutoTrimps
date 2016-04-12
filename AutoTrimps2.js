@@ -445,17 +445,21 @@ function prestigeonUpgrades()
 {
         var oldi;
         var oldi2;
+        var icount = 0;
+        var pureturn = false;
 	for (i in equipmentListM)
 	{
-		if (!(!(oldi2))){
+		if (icount >= 2)
+		{
 			if (game.upgrades[equipmentListM[i].Upgrade].allowed < game.upgrades[equipmentListM[oldi2].Upgrade].done) return false;
 		}
-		if (!game.upgrades[equipmentListM[i].Upgrade].locked && !(equipmentListM[i] == "Gym" || equipmentListM[i] == "Shield")) return true;
+		if (!game.upgrades[equipmentListM[i].Upgrade].locked) pureturn = true;
 	        oldi2 = oldi;
 	        oldi = i;
+	        icount += 1
 		
 	}
-	return false;
+	return pureturn;
 }
 function safeBuyJob(jobTitle, amount) {
     if (amount === undefined) amount = 1;
