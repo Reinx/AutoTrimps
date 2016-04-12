@@ -447,7 +447,9 @@ function prestigeonUpgrades()
         var oldi2;
 	for (i in equipmentListM)
 	{
-		if (game.upgrades[equipmentListM[i].Upgrade].allowed < game.upgrades[equipmentListM[oldi2].Upgrade].done) return false;
+		if (oldi2){
+			if (game.upgrades[equipmentListM[i].Upgrade].allowed < game.upgrades[equipmentListM[oldi2].Upgrade].done) return false;
+		}
 		if (!game.upgrades[equipmentListM[i].Upgrade].locked && !(equipmentListM[i] == "Gym" || equipmentListM[i] == "Shield")) return true;
 	        oldi2 = oldi;
 	        oldi = i;
