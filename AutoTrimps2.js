@@ -371,7 +371,8 @@ function prestigeonUpgrades()
 {
 	for (i in equipmentList)
 	{
-		if (!game.upgrades[equipmentList[i].Upgrade].locked) return true;
+		
+		if (!game.upgrades[equipmentList[i].Upgrade].locked && !(equipmentList[i] == "Gym" || equipmentList[i] == "Shield")) return true;
 	}
 	return false;
 }
@@ -1556,7 +1557,7 @@ function autoMap() {
         var enemyDamage = getEnemyMaxAttack(game.global.world + 1, 30, 'Snimp', .85);
         var enemyHealth = getEnemyMaxHealth(game.global.world + 1);
       
-        needPrestige = (game.upgrades[autoTrimpSettings.Prestige.selected].done == game.upgrades[autoTrimpSettings.Prestige.selected].allowed && autoTrimpSettings.Prestige.selected != "Off" && game.mapUnlocks[autoTrimpSettings.Prestige.selected].last <= game.global.world - 5);
+        needPrestige = (autoTrimpSettings.Prestige.selected != "Off" && game.mapUnlocks[autoTrimpSettings.Prestige.selected].last <= game.global.world);
         if (needPrestige) needPrestige = !prestigeonUpgrades();
         if(game.global.challengeActive == "Toxicity") {
     	//ignore damage changes (which would effect how much health we try to buy) entirely since we die in 20 attacks anyway?
