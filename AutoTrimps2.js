@@ -1759,7 +1759,7 @@ function autoMap() {
 	if (shouldFarm && siphonMap == -1) shouldDoMap = "create";
 
         //map if we don't have health/dmg or we need to clear void maps or if we are prestige mapping, and our set item has a new prestige available 
-        if (shouldDoMaps || doVoids || needPrestige) {
+        if (shouldDoMaps || doVoids || (needPrestige && (baseDamage < enemyhp))) {
         	//shouldDoMap = world here if we haven't set it to create yet, meaning we found appropriate high level map, or siphon map
         	//if shouldDoMap != world, it already has a map ID and will be run below
             if (shouldDoMap == "world") {
