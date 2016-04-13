@@ -1850,7 +1850,7 @@ function autoMap() {
         	//if shouldDoMap != world, it already has a map ID and will be run below
             if (shouldDoMap == "world") {
             	//if shouldFarm is true, use a siphonology adjusted map, as long as we aren't trying to prestige
-            	if ((shouldDoMaps || shouldFarm) && !needPrestige && !(siphonMap == -1)) shouldDoMap = game.global.mapsOwnedArray[siphonMap].id;
+            	if ((shouldDoMaps || shouldFarm) && (!needPrestige || prestigeonmap(game.global.world - game.portal.Siphonology.level) > 0) && !(siphonMap == -1)) shouldDoMap = game.global.mapsOwnedArray[siphonMap].id;
                 else if (game.global.world == game.global.mapsOwnedArray[highestMap].level) {
                     shouldDoMap = game.global.mapsOwnedArray[highestMap].id;
                 } else {
@@ -1906,7 +1906,7 @@ function autoMap() {
             } 
             else if (shouldDoMap == "create") {
             	//create a siphonology level map if shouldFarm and not prestiging (void map diff check consideration here?)
-                if((shouldDoMaps || shouldFarm) && !needPrestige) document.getElementById("mapLevelInput").value = game.global.world - game.portal.Siphonology.level;
+                if((shouldDoMaps || shouldFarm) && (!needPrestige || prestigeonmap(game.global.world - game.portal.Siphonology.level) > 0)) document.getElementById("mapLevelInput").value = game.global.world - game.portal.Siphonology.level;
                 else document.getElementById("mapLevelInput").value = game.global.world;
                 if (game.global.world > 70) {
                     sizeAdvMapsRange.value = 9;
