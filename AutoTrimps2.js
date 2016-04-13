@@ -461,6 +461,21 @@ function prestigeonUpgrades()
 	}
 	return pureturn;
 }
+
+function prestigeonmap(mlvl)
+{
+	var totalp = 0;
+	for (i in equipmentList)
+	{
+		if (!(i == "Gym"))
+		{
+			if (game.mapUnlocks[equipmentList[i].Upgrade].last <= mlvl) 
+			totalp += Math.floor((mlvl - game.mapUnlocks[equipmentList[i].Upgrade].last) / 5);
+		}
+	}
+	return totalp;
+}
+
 function safeBuyJob(jobTitle, amount) {
     if (amount === undefined) amount = 1;
     if (amount === 0) return false;
