@@ -2054,7 +2054,7 @@ function autoPortal() {
 				var timeThisPortal = new Date().getTime() - game.global.portalTime;
 	    			timeThisPortal /= 3600000;
 	    			var myHelium = Math.floor(game.resources.helium.owned / timeThisPortal);
-	    			if(myHelium < lastHelium && !game.global.challengeActive) {
+	    			if(myHelium < lastHelium && !game.global.challengeActive && game.global.world > getPageSetting('VoidMaps')) {
 	    				pushData();
 	    				if(autoTrimpSettings.HeliumHourChallenge.selected != 'None') doPortal(autoTrimpSettings.HeliumHourChallenge.selected);
 	    				else doPortal();
