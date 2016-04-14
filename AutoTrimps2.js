@@ -1657,7 +1657,7 @@ function autoMap() {
         var enemyDamage = getEnemyMaxAttack(game.global.world + 1, 30, 'Snimp', .85);
         var enemyHealth = getEnemyMaxHealth(game.global.world + 1);
       
-        needPrestige = (autoTrimpSettings.Prestige.selected != "Off" && game.mapUnlocks[autoTrimpSettings.Prestige.selected].last <= game.global.world);
+        needPrestige = (prestigeonmap(game.global.world) > 0);
         if (needPrestige) needPrestige = !prestigeonUpgrades();
         if(game.global.challengeActive == "Toxicity") {
     	//ignore damage changes (which would effect how much health we try to buy) entirely since we die in 20 attacks anyway?
@@ -1727,6 +1727,7 @@ function autoMap() {
         //if we are at max map bonus, and we don't need to farm, don't do maps
         if(game.global.mapBonus == 5 && !shouldFarm) shouldDoMaps = false;
         if(needPrestige) shouldDoMaps = true;
+        if(needPrestige && (baseDamage > enemyhp)) shouldDoMaps = false;
         //if we are prestige mapping, force equip first mode
         if(autoTrimpSettings.Prestige.selected != "Off" && game.options.menu.mapLoot.enabled != 1) toggleSetting('mapLoot');
         //if player has selected arbalest or gambeson but doesn't have them unlocked, just unselect it for them! It's magic!
