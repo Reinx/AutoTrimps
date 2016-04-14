@@ -476,6 +476,10 @@ function prestigeonmap(mlvl)
 	return totalp;
 }
 
+function timetodie(max,avg,min)
+{
+	
+}
 function safeBuyJob(jobTitle, amount) {
     if (amount === undefined) amount = 1;
     if (amount === 0) return false;
@@ -2152,16 +2156,20 @@ function manageGenes() {
     var fWorkers = Math.ceil(game.resources.trimps.realMax() / 2) - game.resources.trimps.employed;
     if(getPageSetting('ManageBreedtimer')) {
     	if(game.options.menu.showFullBreed.enabled != 1) toggleSetting("showFullBreed");
-    	
-        if(game.portal.Anticipation.level == 0) autoTrimpSettings.GeneticistTimer.value = '0';
-        else if(game.global.challengeActive == 'Electricity' || game.global.challengeActive == 'Mapocalypse') autoTrimpSettings.GeneticistTimer.value = '3.5';
-        else if(game.global.challengeActive == 'Nom' || game.global.challengeActive == 'Toxicity') {
-        	//intent of below if is to push through past megafarming with 30 anti stacks if we need to farm, 
-        	//but raising to 30 antistacks often turns shouldfarm off. Would need a separate shouldFarmNom variable that approximates at 10 stacks? Don't care enough to do now
-        	//if(shouldFarm && !game.global.mapsActive) autoTrimpSettings.GeneticistTimer.value = '30';
-        	autoTrimpSettings.GeneticistTimer.value = '11';
-        }
-        else autoTrimpSettings.GeneticistTimer.value = '30';
+    	var dbreed = timetodie(true);
+    	if (game.global.challengeActive == 'Electricity' || game.global.challengeActive == 'Mapocalypse')
+    	{
+    		if (dbreed > 3) dbreed = 3;
+    	}
+    	else if (game.global.challengeActive == 'Nom' || game.global.challengeActive == 'Toxicity')
+    	{
+    		if (dbreed > 11) dbreed = 11;
+    	}
+    	else if (game.global.challengeActive == "Crushed")
+    	{
+    		dbreed = dbreed / 3;
+    	}
+    	autoTrimpSettings.GeneticistTimer.value = dbreed;
     }
     var inDamageStance = game.upgrades.Dominance.done ? game.global.formation == 2 : game.global.formation == 0;
     var targetBreed = getPageSetting('GeneticistTimer');
