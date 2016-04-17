@@ -1729,7 +1729,7 @@ function autoMap() {
         if (game.global.challengeActive == 'Balance' && game.global.world == 40) shouldDoMaps = false;
         if (game.global.challengeActive == 'Balance' && game.global.world == 39 && game.challenges.Balance.balanceStacks > 100) shouldFarm = true; 
         //if we are at max map bonus, and we don't need to farm, don't do maps
-        if(game.global.mapBonus == 5 && !shouldFarm) shouldDoMaps = false;
+        if(game.global.mapBonus == 10 && !shouldFarm) shouldDoMaps = false;
         if(needPrestige) shouldDoMaps = true;
         if(needPrestige && (baseDamage > enemyhp)) shouldDoMaps = false;
         //if we are prestige mapping, force equip first mode
@@ -1899,7 +1899,7 @@ function autoMap() {
             	}
             	
                 //if we are doing the right map, and it's not a norecycle (unique) map, and we aren't going to hit max map bonus
-                if (shouldDoMap == game.global.currentMapId && !game.global.mapsOwnedArray[getMapIndex(game.global.currentMapId)].noRecycle && (game.global.mapBonus < 4 || shouldFarm || stackingTox)) {
+                if (shouldDoMap == game.global.currentMapId && !game.global.mapsOwnedArray[getMapIndex(game.global.currentMapId)].noRecycle && (game.global.mapBonus < 9 || shouldFarm || stackingTox)) {
                     var targetPrestige = autoTrimpSettings.Prestige.selected;
                     //make sure repeat map is on
                     if (!game.global.repeatMap) {
