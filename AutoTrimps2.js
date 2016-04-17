@@ -1007,7 +1007,7 @@ function getEnemyMaxHealth(zone, level = 30) {
         amt *= Math.pow(1.1, world - 59);
     }
     if (level = 30) amt *= 1.1;
-    amt *= 1.2;
+    amt *= 1.5;
     //amt *= 0.84;
     return Math.floor(amt);
 }
